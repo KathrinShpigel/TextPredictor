@@ -50,7 +50,7 @@ public class TextPredictionProvider implements TextPredictor {
 
         if (dictionary.containsKey(word) && dictionary.get(word).size() >= numOfWords) {
             Map<String, Integer> frequencies = dictionary.get(word);
-            List<Integer> topFrequencies = getTopFrequencies(dictionary.get(word));
+            List<Integer> topFrequencies = getTopFrequencies(frequencies);
 
             for (Map.Entry<String, Integer> entry : frequencies.entrySet()) {
                 if (topFrequencies.contains(entry.getValue())) {
