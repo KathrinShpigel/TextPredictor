@@ -16,7 +16,7 @@ public class Main {
         String test3 = "!@#$%^&*() 1234567890 !@#$%^&*() _____ !@#$%^&*() ++++++ !@#$%^&*() ////// !@#$%^&*()";
         System.out.println(Arrays.toString(textPredictor.getNextWordSuggestions(test3))); // [null, null, null]
 
-        String test4 = " 2 apples, 5 dollars, 2 apples, 6 cats, 2 apples, 12 things, 2 apples, 1 ";
+        String test4 = "\n\n\n 2 apples, \n 5 dollars, 2 apples, \n 6 cats, 2 apples, 12 things, 2 apples,\n 1 \n ";
         System.out.println(Arrays.toString(textPredictor.getNextWordSuggestions(test4))); // [cats, things, dollars]
 
         String test5 = "I eat you eat we eat they eat they eat  they eat they eat we eat";

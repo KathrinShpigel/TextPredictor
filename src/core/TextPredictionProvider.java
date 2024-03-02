@@ -50,16 +50,14 @@ public class TextPredictionProvider implements TextPredictor {
 
         if (dictionary.containsKey(word) && dictionary.get(word).size() >= numOfWords) {
             Map<String, Integer> frequencies = dictionary.get(word);
-            List<Integer> topFrequencies = getTopFrequencies(frequencies);
+            List<Integer> topFrequencies = getTopFrequencies(dictionary.get(word));
 
-            int i = 0;
             for (Map.Entry<String, Integer> entry : frequencies.entrySet()) {
                 if (topFrequencies.contains(entry.getValue())) {
                     int index = topFrequencies.indexOf(entry.getValue());
                     String key = entry.getKey();
                     suggestions[index] = key;
                     topFrequencies.set(index, -1);
-                    if (++i > numOfWords) break;
                 }
             }
         }
