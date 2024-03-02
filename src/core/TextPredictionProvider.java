@@ -41,12 +41,12 @@ public class TextPredictionProvider implements TextPredictor {
     public String[] getNextWordSuggestions(String sentence) {
         String[] suggestions = new String[numOfWords];
 
-        if (sentence == null || sentence.isEmpty()) {
-            return suggestions;
-        }
+        if (sentence == null || sentence.isEmpty()) return suggestions;
 
         trainModel(sentence);
-        String word = Helper.extractWords(sentence).getLast();
+        ArrayList<String> words = Helper.extractWords(sentence);
+        if (words.size() == 0) return suggestions;
+        String word = words.getLast();
 
         if (dictionary.containsKey(word) && dictionary.get(word).size() >= numOfWords) {
             Map<String, Integer> frequencies = dictionary.get(word);

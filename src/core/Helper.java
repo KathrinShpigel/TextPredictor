@@ -35,6 +35,9 @@ public class Helper {
      */
     public static ArrayList<String> extractWords(String text) {
         String preparedText = convertToLowerCase(cleanText(text));
+
+        if (preparedText.isEmpty()) return new ArrayList<>();
+
         return new ArrayList<>(List.of(preparedText.split(" ")));
     }
 }
