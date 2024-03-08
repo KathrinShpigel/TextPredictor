@@ -10,6 +10,7 @@ public interface TextPredictor {
      * Sets the limit for the number of words in the predictions.
      *
      * @param numOfWords the maximum number of words to include in the predictions
+     * @throws IllegalArgumentException If the argument is less than 0
      */
     void setPredictionLimit(int numOfWords);
 

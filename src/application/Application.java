@@ -5,6 +5,7 @@ import core.TextPredictor;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import static application.Command.ConsoleColors.*;
@@ -34,17 +35,24 @@ public class Application {
      * The loop continues indefinitely until the application is terminated
      */
     public void run() {
-        while (true) {
-            ConsoleHelper.displayOptions();
-            System.out.println(String.format("Please enter next word %s", GREEN));
-            String answer = scanner.nextLine();
-            Command command = Command.fromString(answer);
+        try {
+            String textFromFile = FileHelper.readTextFromFile("src/resources/dataSet/input.txt");
+            textPredictor.addText(textFromFile);
 
-            if (command != null) {
-                processCommand(command);
-            } else {
-                handleWordSuggestions(answer);
+            while (true) {
+                ConsoleHelper.displayOptions();
+                System.out.println(String.format("Please enter next word %s", GREEN));
+                String answer = scanner.nextLine();
+                Command command = Command.fromString(answer);
+
+                if (command != null) {
+                    processCommand(command);
+                } else {
+                    handleWordSuggestions(answer);
+                }
             }
+        } catch (FileNotFoundException e) {
+            ConsoleHelper.displayErrorMessage("File not found.");
         }
     }
 
