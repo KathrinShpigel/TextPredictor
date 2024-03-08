@@ -1,6 +1,7 @@
 import enums.Command;
 import core.MapPredictor;
 import core.TextPredictor;
+import services.ConsoleHelper;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -18,7 +19,7 @@ public class Application {
             textPredictor = new MapPredictor(3);
             scanner = new Scanner(System.in);
         } catch (IllegalArgumentException exception) {
-            displayErrorMessage(exception.getMessage());
+            ConsoleHelper.displayErrorMessage(exception.getMessage());
         }
     }
 
@@ -34,7 +35,7 @@ public class Application {
      */
     public void run() {
         while (true) {
-            displayOptions();
+            ConsoleHelper.displayOptions();
             System.out.println(String.format("Please enter next word %s", GREEN));
             String answer = scanner.nextLine();
             Command command = Command.fromString(answer);
@@ -47,19 +48,9 @@ public class Application {
         }
     }
 
-    private void displayErrorMessage(String message) {
-        System.out.println(String.format("%s%s%s\n", RED, message, RESET));
-    }
-
-    private void displayOptions() {
-        System.out.println(String.format("%s> %s\"%s\"%s to quit from the app", RESET, RED, Command.QUIT, RESET));
-        System.out.println(String.format("> %s\"%s\"%s to rollback model", BLUE, Command.ROLLBACK, RESET));
-        System.out.println(String.format("> %s\"%s\"%s to change the limit of suggestions", YELLOW, Command.LIMIT, RESET));
-    }
-
     private void rollbackModel() {
         textPredictor.clearDictionary();
-        System.out.println(String.format("%sThe model has been rolled back successfully%s\n", BLUE, RESET));
+        ConsoleHelper.printSuccessMessage("The model has been rolled back successfully");
     }
 
     private void changeLimit() {
@@ -68,12 +59,12 @@ public class Application {
             int limit = scanner.nextInt();
             scanner.nextLine();
             textPredictor.setPredictionLimit(limit);
-            System.out.println(String.format("%sThe suggestions limit has been changed successfully%s\n", YELLOW, RESET));
+            ConsoleHelper.printSuccessMessage("The suggestions limit has been changed successfully");
         } catch (InputMismatchException exception) {
-            displayErrorMessage("Suggestions limit must be a number");
+            ConsoleHelper.displayErrorMessage("Suggestions limit must be a number");
             scanner.nextLine(); // Consume invalid input
         } catch (IllegalArgumentException exception) {
-            displayErrorMessage(exception.getMessage());
+            ConsoleHelper.displayErrorMessage(exception.getMessage());
         }
     }
 
