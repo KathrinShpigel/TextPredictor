@@ -14,6 +14,8 @@ public class Helper {
      * @return the cleaned text with only letters and spaces
      */
     public static String cleanText(String text) {
+        if (text == null) return new String();
+
         return text.trim().replaceAll(Constants.CLEAN_TEXT_REGEX, "").replaceAll("\\s+", " ");
     }
 
@@ -24,6 +26,8 @@ public class Helper {
      * @return the text with all words converted to lowercase
      */
     public static String convertToLowerCase(String text) {
+        if (text == null) return new String();
+
         return text.toLowerCase();
     }
 
@@ -34,10 +38,16 @@ public class Helper {
      * @return a list of words extracted from the processed text
      */
     public static ArrayList<String> extractWords(String text) {
+        ArrayList<String> result = new ArrayList<>();
+
+        if (text == null) return result;
+
         String preparedText = convertToLowerCase(cleanText(text));
 
-        if (preparedText.isEmpty()) return new ArrayList<>();
+        if (preparedText.isEmpty()) return result;
 
-        return new ArrayList<>(List.of(preparedText.split(" ")));
+        result.addAll(List.of(preparedText.split(" ")));
+
+        return result;
     }
 }

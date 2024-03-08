@@ -1,5 +1,7 @@
 package core;
 
+import java.util.ArrayList;
+
 /**
  * Interface for a text predictor, which suggests next word predictions based on input text.
  */
@@ -16,15 +18,15 @@ public interface TextPredictor {
      *
      * @param text the sentence used for training the predictor model
      */
-    void trainModel(String text);
+    void addText(String text);
 
     /**
      * Retrieves the next word suggestions based on the given sentence.
      *
-     * @param sentence the input sentence to generate predictions for
-     * @return an array of suggested next words
+     * @param word the input sentence to generate predictions for
+     * @return an arrayList of suggested next words
      */
-    String[] getNextWordSuggestions(String sentence);
+    ArrayList<String> getNextWordSuggestions(String word);
 
     /**
      * Clears the dictionary or model used for predictions.

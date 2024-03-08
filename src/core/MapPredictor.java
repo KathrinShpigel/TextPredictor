@@ -2,19 +2,23 @@ package core;
 
 import java.util.*;
 
-public class TextPredictionProvider implements TextPredictor {
+public class MapPredictor implements TextPredictor {
     private Map<String, Map<String, Integer>> dictionary = new HashMap<>();
     private int numOfWords;
 
-    public TextPredictionProvider(int numOfWords) {
+    public MapPredictor(int numOfWords) throws IllegalArgumentException {
         setPredictionLimit(numOfWords);
     }
 
-    public void setPredictionLimit(int numOfWords) {
+    public void setPredictionLimit(int numOfWords) throws IllegalArgumentException {
+        if (numOfWords <= 0) {
+            throw new IllegalArgumentException("Argument must be greater than 0");
+        }
+
         this.numOfWords = numOfWords;
     }
 
-    public void trainModel(String text) {
+    public void addText(String text) {
         if (text == null || text.isEmpty()) return;
 
         ArrayList<String> words = Helper.extractWords(text);
@@ -38,15 +42,11 @@ public class TextPredictionProvider implements TextPredictor {
         }
     }
 
-    public String[] getNextWordSuggestions(String sentence) {
-        String[] suggestions = new String[numOfWords];
+    public ArrayList<String> getNextWordSuggestions(String word) {
+        ArrayList<String> suggestions = new ArrayList<>();
+        word = Helper.convertToLowerCase(Helper.cleanText(word));
 
-        if (sentence == null || sentence.isEmpty()) return suggestions;
-
-        trainModel(sentence);
-        ArrayList<String> words = Helper.extractWords(sentence);
-        if (words.size() == 0) return suggestions;
-        String word = words.getLast();
+        if (word == null || word.isEmpty()) return suggestions;
 
         if (dictionary.containsKey(word) && dictionary.get(word).size() >= numOfWords) {
             Map<String, Integer> frequencies = dictionary.get(word);
@@ -56,7 +56,7 @@ public class TextPredictionProvider implements TextPredictor {
                 if (topFrequencies.contains(entry.getValue())) {
                     int index = topFrequencies.indexOf(entry.getValue());
                     String key = entry.getKey();
-                    suggestions[index] = key;
+                    suggestions.add(key);
                     topFrequencies.set(index, -1);
                 }
             }
