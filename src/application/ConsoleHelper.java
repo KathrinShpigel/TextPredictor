@@ -1,9 +1,7 @@
-package services;
+package application;
 
-import enums.Command;
-
-import static constants.ConsoleColors.*;
-import static constants.ConsoleColors.RESET;
+import static application.Command.ConsoleColors.*;
+import static application.Command.ConsoleColors.RESET;
 
 /**
  * Utility class providing methods for console-related functionalities such as displaying messages and options

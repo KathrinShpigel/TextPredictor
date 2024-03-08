@@ -1,14 +1,14 @@
-import enums.Command;
+package application;
+
 import core.MapPredictor;
 import core.TextPredictor;
-import services.ConsoleHelper;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static constants.ConsoleColors.*;
-import static constants.ConsoleColors.RESET;
+import static application.Command.ConsoleColors.*;
+import static application.Command.ConsoleColors.RESET;
 
 public class Application {
     private TextPredictor textPredictor;
