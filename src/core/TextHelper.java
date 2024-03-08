@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * The Helper class provides utility methods for text processing.
  */
-public class Helper {
+public class TextHelper {
     /**
      * Cleans the given text by removing special characters, while preserving letters and spaces.
      *

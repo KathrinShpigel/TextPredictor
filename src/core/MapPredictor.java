@@ -21,7 +21,7 @@ public class MapPredictor implements TextPredictor {
     public void addText(String text) {
         if (text == null || text.isEmpty()) return;
 
-        ArrayList<String> words = Helper.extractWords(text);
+        ArrayList<String> words = TextHelper.extractWords(text);
 
         while (words.size() > 1) {
             String word = words.removeFirst();
@@ -44,7 +44,7 @@ public class MapPredictor implements TextPredictor {
 
     public ArrayList<String> getNextWordSuggestions(String word) {
         ArrayList<String> suggestions = new ArrayList<>();
-        word = Helper.convertToLowerCase(Helper.cleanText(word));
+        word = TextHelper.convertToLowerCase(TextHelper.cleanText(word));
 
         if (word == null || word.isEmpty()) return suggestions;
 
