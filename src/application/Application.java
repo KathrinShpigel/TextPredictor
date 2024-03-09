@@ -8,8 +8,7 @@ import java.util.InputMismatchException;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import static application.Command.ConsoleColors.*;
-import static application.Command.ConsoleColors.RESET;
+import static application.ConsoleColors.*;
 
 public class Application {
     private TextPredictor textPredictor;
@@ -56,11 +55,6 @@ public class Application {
         }
     }
 
-    private void rollbackModel() {
-        textPredictor.clearDictionary();
-        ConsoleHelper.printSuccessMessage("The model has been rolled back successfully");
-    }
-
     private void changeLimit() {
         System.out.println(String.format("%sPlease enter new suggestions limit:%s", RESET, GREEN));
         try {
@@ -86,16 +80,10 @@ public class Application {
     }
 
     private void processCommand(Command command) {
-        switch (command) {
-            case QUIT:
-                System.exit(0); // Terminate the application
-                break;
-            case ROLLBACK:
-                rollbackModel();
-                break;
-            case LIMIT:
-                changeLimit();
-                break;
+        if (command == Command.QUIT) {
+            System.exit(0); // Terminate the application
+        } else {
+            changeLimit();
         }
     }
 }

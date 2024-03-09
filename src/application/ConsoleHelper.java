@@ -1,7 +1,6 @@
 package application;
 
-import static application.Command.ConsoleColors.*;
-import static application.Command.ConsoleColors.RESET;
+import static application.ConsoleColors.*;
 
 /**
  * Utility class providing methods for console-related functionalities such as displaying messages and options
@@ -26,12 +25,11 @@ public class ConsoleHelper {
     }
 
     /**
-     * Displays the available options to the user, including commands to quit, rollback the model, and change the limit of suggestions
+     * Displays the available options to the user, including commands to quit, and change the limit of suggestions
      * The options are displayed with appropriate colors for better visibility
      */
     public static void displayOptions() {
         System.out.println(String.format("%s> %s\"%s\"%s to quit from the app", RESET, RED, Command.QUIT, RESET));
-        System.out.println(String.format("> %s\"%s\"%s to rollback model", BLUE, Command.ROLLBACK, RESET));
         System.out.println(String.format("> %s\"%s\"%s to change the limit of suggestions", YELLOW, Command.LIMIT, RESET));
     }
 }
