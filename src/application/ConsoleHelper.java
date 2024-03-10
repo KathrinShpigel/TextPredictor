@@ -7,11 +7,11 @@ import static application.ConsoleColors.*;
  */
 public class ConsoleHelper {
     /**
-     * Displays an error message in red color
+     * Prints an error message in red color
      *
-     * @param message the error message to display
+     * @param message the error message to print
      */
-    public static void displayErrorMessage(String message) {
+    public static void printErrorMessage(String message) {
         System.out.println(String.format("%s%s%s\n", RED, message, RESET));
     }
 
@@ -25,10 +25,10 @@ public class ConsoleHelper {
     }
 
     /**
-     * Displays the available options to the user, including commands to quit, and change the limit of suggestions
-     * The options are displayed with appropriate colors for better visibility
+     * Prints the available options to the user, including commands to quit, and change the limit of suggestions
+     * The options are printed in the console with appropriate colors for better visibility
      */
-    public static void displayOptions() {
+    public static void printOptions() {
         System.out.println(String.format("%s> %s\"%s\"%s to quit from the app", RESET, RED, Command.QUIT, RESET));
         System.out.println(String.format("> %s\"%s\"%s to change the limit of suggestions", YELLOW, Command.LIMIT, RESET));
     }

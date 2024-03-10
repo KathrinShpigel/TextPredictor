@@ -19,7 +19,7 @@ public class Application {
             textPredictor = new MapPredictor(3);
             scanner = new Scanner(System.in);
         } catch (IllegalArgumentException exception) {
-            ConsoleHelper.displayErrorMessage(exception.getMessage());
+            ConsoleHelper.printErrorMessage(exception.getMessage());
         }
     }
 
@@ -39,7 +39,7 @@ public class Application {
             textPredictor.addText(textFromFile);
 
             while (true) {
-                ConsoleHelper.displayOptions();
+                ConsoleHelper.printOptions();
                 System.out.println(String.format("Please enter next word %s", GREEN));
                 String answer = scanner.nextLine();
                 Command command = Command.fromString(answer);
@@ -51,7 +51,7 @@ public class Application {
                 }
             }
         } catch (FileNotFoundException e) {
-            ConsoleHelper.displayErrorMessage("File not found.");
+            ConsoleHelper.printErrorMessage("File not found.");
         }
     }
 
@@ -63,10 +63,10 @@ public class Application {
             textPredictor.setPredictionLimit(limit);
             ConsoleHelper.printSuccessMessage("The suggestions limit has been changed successfully");
         } catch (InputMismatchException exception) {
-            ConsoleHelper.displayErrorMessage("Suggestions limit must be a number");
+            ConsoleHelper.printErrorMessage("Suggestions limit must be a number");
             scanner.nextLine(); // Consume invalid input
         } catch (IllegalArgumentException exception) {
-            ConsoleHelper.displayErrorMessage(exception.getMessage());
+            ConsoleHelper.printErrorMessage(exception.getMessage());
         }
     }
 

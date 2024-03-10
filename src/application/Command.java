@@ -15,7 +15,7 @@ public enum Command {
     LIMIT;
 
     /**
-     * Parses a string input into a corresponding Command enum value.
+     * Parses a string input into a corresponding Command enum value
      *
      * @param text the string input representing a command
      * @return the Command enum value corresponding to the input, or null if no matching command is found
