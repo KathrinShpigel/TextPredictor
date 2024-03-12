@@ -1,7 +1,5 @@
 package console;
 
-import java.util.Map;
-
 import static console.ConsoleColors.*;
 
 /**

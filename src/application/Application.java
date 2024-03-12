@@ -1,24 +1,26 @@
 package application;
 
-import static console.ConsoleColors.*;
 import console.ConsoleHelper;
 import core.MapPredictor;
 import core.TextPredictor;
 import file.FileHelper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
+import static console.ConsoleColors.*;
+
 public class Application {
+    private static final String FILE_PATH = "src/resources/dataSet/input.txt";
+    private static final int NUM_OF_WORDS = 3;
     private TextPredictor textPredictor;
     private Scanner scanner;
 
     public Application() {
         try {
-            textPredictor = new MapPredictor(3);
+            textPredictor = new MapPredictor(NUM_OF_WORDS);
             scanner = new Scanner(System.in);
         } catch (IllegalArgumentException exception) {
             ConsoleHelper.printErrorMessage(exception.getMessage());
@@ -37,7 +39,7 @@ public class Application {
      */
     public void run() {
         try {
-            String textFromFile = FileHelper.readTextFromFile("src/resources/dataSet/input.txt");
+            String textFromFile = FileHelper.readTextFromFile(FILE_PATH);
             textPredictor.addText(textFromFile);
 
             while (true) {
@@ -57,6 +59,8 @@ public class Application {
                             default -> throw new IllegalStateException(String.format("Unexpected command: %s", command.getValue()));
                         }
                     }
+
+                    ConsoleHelper.printInfoMessage("This command is unexpected\n");
                 } else {
                     String answer = scanner.nextLine();
                     handleWordSuggestions(answer);
@@ -85,7 +89,7 @@ public class Application {
     }
 
     private void handleWordSuggestions(String word) {
-        ArrayList<String> suggestions = textPredictor.getNextWordSuggestions(word);
+        List<String> suggestions = textPredictor.getNextWordSuggestions(word);
         if (suggestions.isEmpty()) {
             ConsoleHelper.printResultMessage(String.format("Unfortunately, there are no suggestions for the word \"%s\"\n", word));
         } else {
