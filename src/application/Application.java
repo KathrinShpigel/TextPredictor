@@ -1,14 +1,16 @@
 package application;
 
+import static console.ConsoleColors.*;
+import console.ConsoleHelper;
 import core.MapPredictor;
 import core.TextPredictor;
+import file.FileHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-import static application.ConsoleColors.*;
 
 public class Application {
     private TextPredictor textPredictor;
@@ -39,8 +41,8 @@ public class Application {
             textPredictor.addText(textFromFile);
 
             while (true) {
-                ConsoleHelper.printOptions();
-                System.out.println(String.format("Please enter next word %s", GREEN));
+                ConsoleHelper.printOptions(createOptionsMap());
+                ConsoleHelper.printInfoMessage("Please enter next word");
                 String answer = scanner.nextLine();
                 Command command = Command.fromString(answer);
 
@@ -55,23 +57,21 @@ public class Application {
                 }
             }
         } catch (FileNotFoundException exception) {
-            ConsoleHelper.printErrorMessage("File not found.");
-        } catch (IllegalStateException exception) {
-            ConsoleHelper.printErrorMessage(exception.getMessage());
+            ConsoleHelper.printErrorMessage("File not found");
         } catch (Exception exception) {
             ConsoleHelper.printErrorMessage(exception.getMessage());
         }
     }
 
     private void changeLimit() {
-        System.out.println(String.format("%sPlease enter new suggestions limit:%s", RESET, GREEN));
+        ConsoleHelper.printInfoMessage("\nPlease enter new suggestions limit");
         try {
             int limit = scanner.nextInt();
             scanner.nextLine();
             textPredictor.setPredictionLimit(limit);
-            ConsoleHelper.printSuccessMessage("The suggestions limit has been changed successfully");
+            ConsoleHelper.printSuccessMessage("\nThe suggestions limit has been changed successfully");
         } catch (InputMismatchException exception) {
-            ConsoleHelper.printErrorMessage("Suggestions limit must be a number");
+            ConsoleHelper.printErrorMessage("\nSuggestions limit must be a number");
             scanner.nextLine(); // Consume invalid input
         } catch (IllegalArgumentException exception) {
             ConsoleHelper.printErrorMessage(exception.getMessage());
@@ -81,9 +81,16 @@ public class Application {
     private void handleWordSuggestions(String word) {
         ArrayList<String> suggestions = textPredictor.getNextWordSuggestions(word);
         if (suggestions.isEmpty()) {
-            System.out.println(String.format("%sUnfortunately, there are no suggestions for the word \"%s\"\n", RESET, word));
+            ConsoleHelper.printResultMessage(String.format("Unfortunately, there are no suggestions for the word \"%s\"\n", word));
         } else {
-            System.out.println(String.format("%sHere are suggestions for the word \"%s\" => %s\n", RESET, word, suggestions));
+            ConsoleHelper.printResultMessage(String.format("Here are suggestions for the word \"%s\" => %s\n", word, suggestions));
         }
+    }
+
+    private static HashMap<Command, String> createOptionsMap() {
+        HashMap<Command, String> options = new HashMap<>();
+        options.put(Command.LIMIT, YELLOW);
+        options.put(Command.QUIT, RED);
+        return options;
     }
 }

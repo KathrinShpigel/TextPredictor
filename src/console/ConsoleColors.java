@@ -1,4 +1,4 @@
-package application;
+package console;
 
 /**
  * Utility class containing ANSI escape codes for text color formatting in the console.
