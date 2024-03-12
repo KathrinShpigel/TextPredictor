@@ -45,13 +45,21 @@ public class Application {
                 Command command = Command.fromString(answer);
 
                 if (command != null) {
-                    processCommand(command);
+                    switch (command) {
+                        case QUIT -> System.exit(0);
+                        case LIMIT -> changeLimit();
+                        default -> throw new IllegalStateException(String.format("Unexpected command: %s", command));
+                    }
                 } else {
                     handleWordSuggestions(answer);
                 }
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException exception) {
             ConsoleHelper.printErrorMessage("File not found.");
+        } catch (IllegalStateException exception) {
+            ConsoleHelper.printErrorMessage(exception.getMessage());
+        } catch (Exception exception) {
+            ConsoleHelper.printErrorMessage(exception.getMessage());
         }
     }
 
@@ -76,14 +84,6 @@ public class Application {
             System.out.println(String.format("%sUnfortunately, there are no suggestions for the word \"%s\"\n", RESET, word));
         } else {
             System.out.println(String.format("%sHere are suggestions for the word \"%s\" => %s\n", RESET, word, suggestions));
-        }
-    }
-
-    private void processCommand(Command command) {
-        if (command == Command.QUIT) {
-            System.exit(0); // Terminate the application
-        } else {
-            changeLimit();
         }
     }
 }
