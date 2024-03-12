@@ -1,6 +1,6 @@
 package core;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interface for a text predictor, which suggests next word predictions based on input text.
@@ -27,7 +27,7 @@ public interface TextPredictor {
      * @param word the input sentence to generate predictions for
      * @return an arrayList of suggested next words
      */
-    ArrayList<String> getNextWordSuggestions(String word);
+    List<String> getNextWordSuggestions(String word);
 
     /**
      * Clears the dictionary or model used for predictions.

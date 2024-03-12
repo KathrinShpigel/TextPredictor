@@ -42,7 +42,7 @@ public class MapPredictor implements TextPredictor {
         }
     }
 
-    public ArrayList<String> getNextWordSuggestions(String word) {
+    public List<String> getNextWordSuggestions(String word) {
         ArrayList<String> suggestions = new ArrayList<>();
         word = TextHelper.convertToLowerCase(TextHelper.cleanText(word));
 
