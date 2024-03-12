@@ -41,19 +41,24 @@ public class Application {
             textPredictor.addText(textFromFile);
 
             while (true) {
-                ConsoleHelper.printOption(Command.LIMIT, "to change the limit of suggestions", YELLOW);
-                ConsoleHelper.printOption(Command.QUIT, "to quit from the app", RED);
+                ConsoleHelper.printOption(Command.QUIT.getValue(), "to quit from the app", RED);
+                ConsoleHelper.printOption(Command.LIMIT.getValue(), "to change the limit of suggestions", YELLOW);
                 ConsoleHelper.printInfoMessage("Please enter next word");
-                String answer = scanner.nextLine();
-                Command command = Command.fromString(answer);
 
-                if (command != null) {
-                    switch (command) {
-                        case QUIT -> System.exit(0);
-                        case LIMIT -> changeLimit();
-                        default -> throw new IllegalStateException(String.format("Unexpected command: %s", command));
+                if (scanner.hasNextInt()) {
+                    int answer = scanner.nextInt();
+
+                    Command command = Command.fromValue(answer);
+
+                    if (command != null) {
+                        switch (command) {
+                            case QUIT -> System.exit(0);
+                            case LIMIT -> changeLimit();
+                            default -> throw new IllegalStateException(String.format("Unexpected command: %s", command.getValue()));
+                        }
                     }
                 } else {
+                    String answer = scanner.nextLine();
                     handleWordSuggestions(answer);
                 }
             }

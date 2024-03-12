@@ -55,9 +55,8 @@ public class ConsoleHelper {
      * @param option      the option to print
      * @param description the description of the option
      * @param color       the color to use for displaying the option
-     * @param <Option>    the enum type representing the options
      */
-    public static <Option extends Enum<Option>> void printOption(Option option, String description, String color) {
+    public static void printOption(int option, String description, String color) {
         System.out.println(String.format("%s> %s\"%s\"%s %s", RESET, color, option, RESET, description));
     }
 }
