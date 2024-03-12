@@ -49,17 +49,15 @@ public class ConsoleHelper {
     }
 
     /**
-     * Prints the available options to the user, along with their descriptions.
-     * Each option is printed in the console with the specified color for better visibility.
+     * Prints the option to the console with the specified description and color.
+     * This method is intended for printing a single option.
      *
-     * @param options a map containing the options as keys and their descriptions as values
-     * @param <Option> the enum type representing the options
+     * @param option      the option to print
+     * @param description the description of the option
+     * @param color       the color to use for displaying the option
+     * @param <Option>    the enum type representing the options
      */
-    public static <Option extends Enum<Option>> void printOptions(Map<Option, String> options) {
-        for (Map.Entry<Option, String> entry : options.entrySet()) {
-            Option option = entry.getKey();
-            String color = entry.getValue();
-            System.out.println(String.format("%s> %s\"%s\"%s to change the limit of suggestions", RESET, color, option, RESET));
-        }
+    public static <Option extends Enum<Option>> void printOption(Option option, String description, String color) {
+        System.out.println(String.format("%s> %s\"%s\"%s %s", RESET, color, option, RESET, description));
     }
 }

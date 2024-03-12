@@ -41,7 +41,8 @@ public class Application {
             textPredictor.addText(textFromFile);
 
             while (true) {
-                ConsoleHelper.printOptions(createOptionsMap());
+                ConsoleHelper.printOption(Command.LIMIT, "to change the limit of suggestions", YELLOW);
+                ConsoleHelper.printOption(Command.QUIT, "to quit from the app", RED);
                 ConsoleHelper.printInfoMessage("Please enter next word");
                 String answer = scanner.nextLine();
                 Command command = Command.fromString(answer);
@@ -85,12 +86,5 @@ public class Application {
         } else {
             ConsoleHelper.printResultMessage(String.format("Here are suggestions for the word \"%s\" => %s\n", word, suggestions));
         }
-    }
-
-    private static HashMap<Command, String> createOptionsMap() {
-        HashMap<Command, String> options = new HashMap<>();
-        options.put(Command.LIMIT, YELLOW);
-        options.put(Command.QUIT, RED);
-        return options;
     }
 }
