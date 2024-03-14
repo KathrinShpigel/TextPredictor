@@ -42,6 +42,7 @@ public class Application {
             String textFromFile = FileHelper.readTextFromFile(FILE_PATH);
             textPredictor.addText(textFromFile);
 
+            outerloop:
             while (true) {
                 ConsoleHelper.printOption(Command.QUIT.getValue(), "to quit from the app", RED);
                 ConsoleHelper.printOption(Command.LIMIT.getValue(), "to change the limit of suggestions", YELLOW);
@@ -54,9 +55,12 @@ public class Application {
 
                     if (command != null) {
                         switch (command) {
-                            case QUIT -> System.exit(0);
+                            case QUIT -> {
+                                break outerloop;
+                            }
                             case LIMIT -> changeLimit();
-                            default -> throw new IllegalStateException(String.format("Unexpected command: %s", command.getValue()));
+                            default ->
+                                    throw new IllegalStateException(String.format("Unexpected command: %s", command.getValue()));
                         }
                     }
 
