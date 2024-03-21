@@ -1,8 +1,9 @@
 package file;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * A helper class providing methods for file-related operations
@@ -16,15 +17,10 @@ public class FileHelper {
      * @throws FileNotFoundException If the file is not found
      */
     public static String readTextFromFile(String filePath) throws FileNotFoundException {
-        StringBuilder result = new StringBuilder();
-        File file = new File(filePath);
-        Scanner scanner = new Scanner(file);
-
-        while (scanner.hasNextLine()) {
-            result.append(scanner.nextLine()).append("\n");
+        try {
+            return Files.readAllLines(Path.of(filePath)).toString();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        scanner.close();
-        return result.toString();
     }
 }
